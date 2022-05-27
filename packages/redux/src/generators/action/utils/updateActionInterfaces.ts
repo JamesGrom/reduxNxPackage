@@ -13,7 +13,7 @@ export const updateActionInterfaces = (
   let content = actionTypeModule;
   const toInsertIntoImport = `import {${options.actionName}Interface} from "./${options.actionName}";\n`;
   content = `${toInsertIntoImport}${content}`;
-  const toInsertIntoEnum = `\n${options.actionName.toUpperCase()}="${options.actionName.toUpperCase()}",\n`;
+  const toInsertIntoEnum = `\n${options.actionName.toUpperCase()}="${options.actionName.toUpperCase()}",`;
   content = content.replace(
     'ACTION_TYPES {',
     `ACTION_TYPES { ${toInsertIntoEnum}`
