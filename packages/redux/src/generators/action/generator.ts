@@ -40,7 +40,24 @@ function normalizeOptions(
   };
 }
 
-function addFiles(tree: Tree, options: NormalizedSchema) {
+enum WhichFiles {
+  ACTION = 'ACTION',
+}
+function addFiles(
+  tree: Tree,
+  options: NormalizedSchema,
+  whichFiles: WhichFiles
+) {
+  let fileDestination = options.projectRoot;
+  switch (whichFiles) {
+    case WhichFiles.ACTION: {
+      fileDestination = options.projectRoot + '/src';
+      break;
+    }
+    default:
+      fileDestination = options.projectRoot;
+      break;
+  }
   const templateOptions = {
     ...options,
     ...names(options.name),
@@ -50,32 +67,13 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
-    options.projectRoot,
+    fileDestination,
     templateOptions
   );
 }
 
 export default async function (tree: Tree, options: ReduxGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
-  // addProjectConfiguration(tree, normalizedOptions.projectName, {
-  //   root: normalizedOptions.projectRoot,
-  //   projectType: 'library',
-  //   sourceRoot: `${normalizedOptions.projectRoot}/src`,
-  //   targets: {
-  //     build: {
-  //       executor: '@nrwl/node:webpack',
-  //       outputs: ['{options.outputPath}'],
-  //       options: {
-  //         outputPath: `dist/apps/${normalizedOptions.projectName}`,
-  //         main: `apps/${normalizedOptions.projectName}/src/main.ts`,
-  //         tsConfig: `apps/${normalizedOptions.projectName}/tsconfig.app.json`,
-  //         externalDependencies: 'none',
-  //         outputFileName: 'index.js',
-  //       },
-  //     },
-  //   },
-  //   tags: normalizedOptions.parsedTags,
-  // });
-  addFiles(tree, normalizedOptions);
+  addFiles(tree, normalizedOptions, WhichFiles.ACTION);
   await formatFiles(tree);
 }

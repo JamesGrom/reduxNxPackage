@@ -1,10 +1,4 @@
-import {
-  checkFilesExist,
-  ensureNxProject,
-  readJson,
-  runNxCommandAsync,
-  uniq,
-} from '@nrwl/nx-plugin/testing';
+import { ensureNxProject, runNxCommandAsync } from '@nrwl/nx-plugin/testing';
 
 describe('redux e2e', () => {
   // Setting up individual workspaces per
@@ -24,33 +18,9 @@ describe('redux e2e', () => {
   });
 
   it('should create redux', async () => {
-    const project = uniq('redux');
+    const project = 'rdx';
     await runNxCommandAsync(`generate @authillo/redux:redux ${project}`);
     const result = await runNxCommandAsync(`build ${project}`);
-    expect(result.stdout).toContain('Executor ran');
+    expect(result.stdout).toContain('Successfully ran target build');
   }, 120000);
-
-  describe('--directory', () => {
-    it('should create src in the specified directory', async () => {
-      const project = uniq('redux');
-      await runNxCommandAsync(
-        `generate @authillo/redux:redux ${project} --directory subdir`
-      );
-      expect(() =>
-        checkFilesExist(`libs/subdir/${project}/src/index.ts`)
-      ).not.toThrow();
-    }, 120000);
-  });
-
-  describe('--tags', () => {
-    it('should add tags to the project', async () => {
-      const projectName = uniq('redux');
-      ensureNxProject('@authillo/redux', 'dist/packages/redux');
-      await runNxCommandAsync(
-        `generate @authillo/redux:redux ${projectName} --tags e2etag,e2ePackage`
-      );
-      const project = readJson(`libs/${projectName}/project.json`);
-      expect(project.tags).toEqual(['e2etag', 'e2ePackage']);
-    }, 120000);
-  });
 });

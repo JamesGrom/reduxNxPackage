@@ -1,15 +1,16 @@
 {
-  "extends": "<%= offsetFromRoot %>tsconfig.base.json",
-  "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "<%= offsetFromRoot %>dist/out-tsc",
-    "types": ["node"]
-  },
-  "include": [],
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	},
+	"files": [],
+	"include": [],
+	"references": [
+		{
+			"path": "./tsconfig.lib.json"
+		}
+	]
 }

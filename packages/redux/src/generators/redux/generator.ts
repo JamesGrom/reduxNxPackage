@@ -2,13 +2,16 @@ import {
   addProjectConfiguration,
   formatFiles,
   generateFiles,
+  GeneratorCallback,
   getWorkspaceLayout,
   names,
   offsetFromRoot,
   Tree,
 } from '@nrwl/devkit';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import * as path from 'path';
 import { ReduxGeneratorSchema } from './schema';
+import { initGenerator } from '../init/init';
 
 interface NormalizedSchema extends ReduxGeneratorSchema {
   projectName: string;
@@ -57,6 +60,9 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 
 export default async function (tree: Tree, options: ReduxGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
+  const tasks: GeneratorCallback[] = [];
+  const initTask = await initGenerator(tree, {});
+  tasks.push(initTask);
   addProjectConfiguration(tree, normalizedOptions.projectName, {
     root: normalizedOptions.projectRoot,
     projectType: 'library',
@@ -78,4 +84,5 @@ export default async function (tree: Tree, options: ReduxGeneratorSchema) {
   });
   addFiles(tree, normalizedOptions);
   await formatFiles(tree);
+  return runTasksInSerial(...tasks);
 }

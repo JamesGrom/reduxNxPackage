@@ -1,4 +1,4 @@
-import { noopPayload } from './actionPayload.ts__template__';
+import { noopPayload } from './actionPayload';
 import { ACTION_TYPES } from '../index';
 export interface noopInterface {
   type: ACTION_TYPES.NOOP;

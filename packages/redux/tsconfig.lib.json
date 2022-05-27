@@ -7,7 +7,11 @@
   },
   "include": [
     "**/*.ts",
-    "src/generators/action/files/__actionName__/index.ts__template__"
+    "src/generators/action/files/__actionName__/index.ts__template__",
+    "src/generators/redux/files/src/noop/reducer.ts__template__",
+    "src/generators/redux/files/src/noop/actionPayload.ts__template__",
+    "src/generators/redux/files/src/noop/actionCreator.ts__template__",
+    "src/generators/redux/files/src/noop/actionInterface.ts__template__"
   ],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }
