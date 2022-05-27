@@ -57,17 +57,25 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 
 export default async function (tree: Tree, options: ReduxGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
-  addProjectConfiguration(tree, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    targets: {
-      build: {
-        executor: '@authillo/redux:build',
-      },
-    },
-    tags: normalizedOptions.parsedTags,
-  });
+  // addProjectConfiguration(tree, normalizedOptions.projectName, {
+  //   root: normalizedOptions.projectRoot,
+  //   projectType: 'library',
+  //   sourceRoot: `${normalizedOptions.projectRoot}/src`,
+  //   targets: {
+  //     build: {
+  //       executor: '@nrwl/node:webpack',
+  //       outputs: ['{options.outputPath}'],
+  //       options: {
+  //         outputPath: `dist/apps/${normalizedOptions.projectName}`,
+  //         main: `apps/${normalizedOptions.projectName}/src/main.ts`,
+  //         tsConfig: `apps/${normalizedOptions.projectName}/tsconfig.app.json`,
+  //         externalDependencies: 'none',
+  //         outputFileName: 'index.js',
+  //       },
+  //     },
+  //   },
+  //   tags: normalizedOptions.parsedTags,
+  // });
   addFiles(tree, normalizedOptions);
   await formatFiles(tree);
 }

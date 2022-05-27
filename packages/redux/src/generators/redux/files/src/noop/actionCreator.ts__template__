@@ -1,0 +1,8 @@
+import { noopPayload } from './actionPayload';
+import { ACTION_TYPES } from '../index';
+export const new_noop = (
+  payload: noopPayload
+): { type: ACTION_TYPES.NOOP; payload: noopPayload } => ({
+  type: ACTION_TYPES.NOOP,
+  payload,
+});

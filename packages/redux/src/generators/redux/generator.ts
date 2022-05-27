@@ -63,7 +63,15 @@ export default async function (tree: Tree, options: ReduxGeneratorSchema) {
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@authillo/redux:build',
+        executor: '@nrwl/js:tsc',
+        outputs: ['{options.outputPath}'],
+        options: {
+          outputPath: `dist/libs/${normalizedOptions.projectName}`,
+          tsConfig: `libs/${normalizedOptions.projectName}/tsconfig.lib.json`,
+          packageJson: `libs/${normalizedOptions.projectName}/package.json`,
+          main: `libs/${normalizedOptions.projectName}/src/index.ts`,
+          assets: [],
+        },
       },
     },
     tags: normalizedOptions.parsedTags,

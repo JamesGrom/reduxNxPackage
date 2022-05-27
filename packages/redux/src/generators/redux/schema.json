@@ -7,7 +7,7 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "",
+      "description": "name of this redux library",
       "$default": {
         "$source": "argv",
         "index": 0
