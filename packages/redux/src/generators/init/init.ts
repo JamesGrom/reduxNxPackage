@@ -18,6 +18,7 @@ export async function initGenerator(host: Tree, options: InitOptions) {
     {
       '@nrwl/js': '^13.8.3',
       tslib: '^2.4.0',
+      redux: '^4.1.2',
     },
     {}
   );

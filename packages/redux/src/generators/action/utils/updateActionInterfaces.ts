@@ -10,12 +10,17 @@ export const updateActionInterfaces = (
 ) => {
   const actionTypeModulePath = path.join(options.projectRoot, '/src/index.ts');
   const actionTypeModule = readFileIfExisting(actionTypeModulePath);
-  console.log(actionTypeModule);
-  const toInsert = `import {${options.actionName}Interface} from "./${options.actionName}";`;
-  const withNewInterface = actionTypeModule.replace(
+  let content = actionTypeModule;
+  const toInsertIntoImport = `import {${options.actionName}Interface} from "./${options.actionName}";\n`;
+  content = `${toInsertIntoImport}${content}`;
+  const toInsertIntoEnum = `\n${options.actionName.toUpperCase()}="${options.actionName.toUpperCase()}",\n`;
+  content = content.replace(
+    'ACTION_TYPES {',
+    `ACTION_TYPES { ${toInsertIntoEnum}`
+  );
+  content = content.replace(
     'noopInterface;',
     `${options.actionName}Interface | noopInterface;`
   );
-  const newContent = `${toInsert}${withNewInterface}`;
-  tree.write(actionTypeModulePath, newContent);
+  tree.write(actionTypeModulePath, content);
 };

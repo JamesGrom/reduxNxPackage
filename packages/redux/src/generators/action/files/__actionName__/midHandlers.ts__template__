@@ -1,0 +1,13 @@
+import { Action } from '../index';
+import {ACTION_TYPES} from "../index"
+import { MiddlewareAPI } from "redux";
+export const defaultMiddlewareHandler = (action: Action , api:MiddlewareAPI) => {
+    switch (action.type) {
+        case ACTION_TYPES.<%=uppercase(actionName) %>: {
+            console.log(`defaultMiddleware triggered for <%=uppercase(actionName)%>`)
+            break;
+        }
+        default:
+            break;
+    }
+};

@@ -1,0 +1,16 @@
+import { Action } from '../index';
+import { ACTION_TYPES } from '../index';
+import { MiddlewareAPI } from 'redux';
+export const defaultMiddlewareHandler = (
+  action: Action,
+  api: MiddlewareAPI
+) => {
+  switch (action.type) {
+    case ACTION_TYPES.NOOP: {
+      console.log(`defaultMiddleware triggered for NOOP`);
+      break;
+    }
+    default:
+      break;
+  }
+};

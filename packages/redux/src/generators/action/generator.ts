@@ -6,10 +6,9 @@ import {
   offsetFromRoot,
   Tree,
 } from '@nrwl/devkit';
-import { updateActionTypes } from './utils/updateActionTypes';
+import { updateActionInterfaces } from './utils/updateActionInterfaces';
 import * as path from 'path';
 import { ActionGeneratorSchema } from './schema';
-import { updateActionInterfaces } from './utils/updateActionInterfaces';
 
 export interface NormalizedSchema extends ActionGeneratorSchema {
   actionRoot: string;
@@ -53,7 +52,6 @@ function uppercase(val: string) {
 export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
-  updateActionTypes(tree, normalizedOptions);
   updateActionInterfaces(tree, normalizedOptions);
   await formatFiles(tree);
 }
