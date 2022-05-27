@@ -1,5 +1,4 @@
 import {
-  addProjectConfiguration,
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
@@ -7,17 +6,18 @@ import {
   offsetFromRoot,
   Tree,
 } from '@nrwl/devkit';
+import { updateActionTypes } from './utils/updateActionTypes';
 import * as path from 'path';
-import { ReduxGeneratorSchema } from './schema';
+import { ActionGeneratorSchema } from './schema';
 
-interface NormalizedSchema extends ReduxGeneratorSchema {
+export interface NormalizedSchema extends ActionGeneratorSchema {
   actionRoot: string;
   projectRoot: string;
 }
 
 function normalizeOptions(
   tree: Tree,
-  options: ReduxGeneratorSchema
+  options: ActionGeneratorSchema
 ): NormalizedSchema {
   const nameOfAction = names(options.actionName).fileName;
   const actionName = nameOfAction.replace(new RegExp('/', 'g'), '-');
@@ -49,8 +49,9 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 function uppercase(val: string) {
   return val.toUpperCase();
 }
-export default async function (tree: Tree, options: ReduxGeneratorSchema) {
+export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
+  updateActionTypes(tree, normalizedOptions);
   await formatFiles(tree);
 }

@@ -1,4 +1,4 @@
-export interface ReduxGeneratorSchema {
+export interface ActionGeneratorSchema {
   parentLibraryName: string;
   actionName: string;
   includesLoader: boolean;
