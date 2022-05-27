@@ -1,0 +1,16 @@
+import { noopPayload } from './actionPayload';
+import { ACTION_TYPES, Action } from '../index';
+
+const initialVal = null;
+export const noopReducer = (
+  oldVal: noopPayload = initialVal,
+  action: Action
+) => {
+  switch (action.type) {
+    case ACTION_TYPES.NOOP: {
+      return action.payload;
+    }
+    default:
+      return oldVal;
+  }
+};
