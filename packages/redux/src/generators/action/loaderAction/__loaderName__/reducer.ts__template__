@@ -1,0 +1,16 @@
+import {<%=loaderName%>Payload } from "./actionPayload";
+import {ACTION_TYPES,Action} from "../index"
+
+const initialVal = false;
+export const <%=loaderName%>Reducer = (
+	oldVal: <%=loaderName%>Payload = initialVal,
+	action: Action
+) => {
+	switch (action.type) {
+		case ACTION_TYPES.<%=uppercase(loaderName)%>: {
+			return action.payload;
+		}
+		default:
+			return oldVal;
+	}
+};

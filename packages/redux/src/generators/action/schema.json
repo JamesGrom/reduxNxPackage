@@ -25,11 +25,8 @@
     },
     "includesLoader": {
       "type": "boolean",
-      "description": "",
-      "$default": {
-        "$source": "argv",
-        "index": 2
-      },
+      "description": "generates a loader and corresponding action for the loader",
+      "default": "false",
       "x-prompt": "should this action include a corresponding loader?"
     },
     "reducedStateName": {

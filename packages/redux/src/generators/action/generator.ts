@@ -6,6 +6,7 @@ import {
   offsetFromRoot,
   Tree,
 } from '@nrwl/devkit';
+import { uppercase } from './utils/uppercase';
 import { updateActionInterfaces } from './utils/updateActionInterfaces';
 import * as path from 'path';
 import { ActionGeneratorSchema } from './schema';
@@ -41,13 +42,10 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     offsetFromRoot: offsetFromRoot(options.projectRoot),
     template: '',
   };
-  generateFiles(tree, path.join(__dirname, 'files'), fileDestination, {
+  generateFiles(tree, path.join(__dirname, 'action'), fileDestination, {
     ...templateOptions,
     uppercase,
   });
-}
-function uppercase(val: string) {
-  return val.toUpperCase();
 }
 export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
