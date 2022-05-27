@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "redux": "packages/redux",
+    "redux-e2e": "e2e/redux-e2e"
+  }
+}

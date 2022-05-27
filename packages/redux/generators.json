@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "redux",
+  "version": "0.0.1",
+  "generators": {
+    "redux": {
+      "factory": "./src/generators/redux/generator",
+      "schema": "./src/generators/redux/schema.json",
+      "description": "redux generator"
+    }
+  }
+}
