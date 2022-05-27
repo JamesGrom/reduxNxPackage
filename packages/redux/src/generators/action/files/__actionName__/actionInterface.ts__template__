@@ -1,6 +1,6 @@
 import {<%=actionName%>Payload } from "./actionPayload";
 import {ACTION_TYPES} from "../index"
 export interface <%=actionName%>Interface { 
-    type: ACTION_TYPES.<%uppercase(actionName)%>,
-    payload: <%=actionName%>Payload 
+    type: ACTION_TYPES.<%=uppercase(actionName)%>;
+    payload: <%=actionName%>Payload;
 }

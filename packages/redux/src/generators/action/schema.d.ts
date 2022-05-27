@@ -1,8 +1,7 @@
 export interface ReduxGeneratorSchema {
-  name: string;
+  parentLibraryName: string;
+  actionName: string;
   includesLoader: boolean;
   reducedStateName: string;
   initialValue: string;
-  tags?: string;
-  directory?: string;
 }

@@ -7,6 +7,11 @@
       "factory": "./src/generators/redux/generator",
       "schema": "./src/generators/redux/schema.json",
       "description": "redux generator"
+    },
+    "action": {
+      "factory": "./src/generators/action/generator",
+      "schema": "./src/generators/action/schema.json",
+      "description": "generates code templates for a redux action"
     }
   }
 }

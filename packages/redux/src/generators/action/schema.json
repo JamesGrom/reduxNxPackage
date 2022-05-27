@@ -5,12 +5,21 @@
   "title": "generate a redux action",
   "type": "object",
   "properties": {
-    "name": {
+    "parentLibraryName": {
       "type": "string",
-      "description": "",
+      "description": "The redux library for/in which the action is created",
       "$default": {
         "$source": "argv",
         "index": 0
+      },
+      "x-prompt": "Which redux library should this action be created in?"
+    },
+    "actionName": {
+      "type": "string",
+      "description": "The name of the redux action",
+      "$default": {
+        "$source": "argv",
+        "index": 1
       },
       "x-prompt": "What would you like to call the action ?"
     },
@@ -19,7 +28,7 @@
       "description": "",
       "$default": {
         "$source": "argv",
-        "index": 1
+        "index": 2
       },
       "x-prompt": "should this action include a corresponding loader?"
     },
@@ -28,7 +37,7 @@
       "description": "name of the destination object in redux store",
       "$default": {
         "$source": "argv",
-        "index": 1
+        "index": 3
       },
       "x-prompt": "what object name should the redcer reduce to? eg: ActionName_Loading"
     },
@@ -37,20 +46,10 @@
       "description": "initial value set in the first reducer",
       "$default": {
         "$source": "argv",
-        "index": 2
+        "index": 4
       },
-      "x-prompt": "should this action include a corresponding loader?"
-    },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    },
-    "directory": {
-      "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+      "x-prompt": "what should the initial value be in the redux store?"
     }
   },
-  "required": ["name", "includesLoader"]
+  "required": ["actionName", "includesLoader"]
 }

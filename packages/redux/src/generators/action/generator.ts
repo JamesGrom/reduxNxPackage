@@ -11,69 +11,46 @@ import * as path from 'path';
 import { ReduxGeneratorSchema } from './schema';
 
 interface NormalizedSchema extends ReduxGeneratorSchema {
-  projectName: string;
+  actionRoot: string;
   projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
 }
 
 function normalizeOptions(
   tree: Tree,
   options: ReduxGeneratorSchema
 ): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
-
+  const nameOfAction = names(options.actionName).fileName;
+  const actionName = nameOfAction.replace(new RegExp('/', 'g'), '-');
+  const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${
+    options.parentLibraryName
+  }`;
+  const actionRoot = projectRoot + `/src`;
   return {
     ...options,
-    projectName,
     projectRoot,
-    projectDirectory,
-    parsedTags,
+    actionName,
+    actionRoot,
   };
 }
 
-enum WhichFiles {
-  ACTION = 'ACTION',
-}
-function addFiles(
-  tree: Tree,
-  options: NormalizedSchema,
-  whichFiles: WhichFiles
-) {
-  let fileDestination = options.projectRoot;
-  switch (whichFiles) {
-    case WhichFiles.ACTION: {
-      fileDestination = options.projectRoot + '/src';
-      break;
-    }
-    default:
-      fileDestination = options.projectRoot;
-      break;
-  }
+function addFiles(tree: Tree, options: NormalizedSchema) {
+  const fileDestination = options.actionRoot;
   const templateOptions = {
     ...options,
-    ...names(options.name),
+    ...names(options.actionName),
     offsetFromRoot: offsetFromRoot(options.projectRoot),
     template: '',
   };
-  generateFiles(
-    tree,
-    path.join(__dirname, 'files'),
-    fileDestination,
-    templateOptions
-  );
+  generateFiles(tree, path.join(__dirname, 'files'), fileDestination, {
+    ...templateOptions,
+    uppercase,
+  });
 }
-
+function uppercase(val: string) {
+  return val.toUpperCase();
+}
 export default async function (tree: Tree, options: ReduxGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
-  addFiles(tree, normalizedOptions, WhichFiles.ACTION);
+  addFiles(tree, normalizedOptions);
   await formatFiles(tree);
 }
