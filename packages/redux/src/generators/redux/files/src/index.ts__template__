@@ -1,4 +1,5 @@
+import { noopInterface } from './noop';
 export enum ACTION_TYPES {
   NOOP = 'NOOP',
 }
-export type Action = { type: ACTION_TYPES.NOOP; payload: null };
+export type Action = noopInterface;
