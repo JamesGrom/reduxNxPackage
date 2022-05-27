@@ -1,0 +1,8 @@
+import {<%=actionName%>Payload } from "./actionPayload";
+import {ACTION_TYPES} from "../index"
+export const new<%=actionName%> = (
+	payload: <%=actionName%>Payload  
+): { type: ActionTypes.<%=uppercase(actionName)%>; payload: <%=actionName%>Payload  } => ({
+	type: ActionTypes.<%=uppercase(actionName)%>,
+	payload,
+});

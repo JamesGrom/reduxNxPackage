@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "Action",
+  "title": "generate a redux action",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What would you like to call the action ?"
+    },
+    "includesLoader": {
+      "type": "boolean",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "should this action include a corresponding loader?"
+    },
+    "reducedStateName": {
+      "type": "string",
+      "description": "name of the destination object in redux store",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "what object name should the redcer reduce to? eg: ActionName_Loading"
+    },
+    "initialValue": {
+      "type": "string",
+      "description": "initial value set in the first reducer",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": "should this action include a corresponding loader?"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Add tags to the project (used for linting)",
+      "alias": "t"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the project is placed",
+      "alias": "d"
+    }
+  },
+  "required": ["name", "includesLoader"]
+}
