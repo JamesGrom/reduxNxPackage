@@ -31,11 +31,11 @@ const updateActionTypesEnum = (content: string, actionName: string): string => {
   return content;
 };
 const updateAction = (content: string, actionName: string): string => {
-  const replacementAnchorString = 'export type Action =';
+  const replacementRegex = new RegExp(`export type Action *= *[ \n|]*`);
   const newContent = ` ${actionName}Interface |`;
   content = content.replace(
-    replacementAnchorString,
-    `${replacementAnchorString}${newContent}`
+    replacementRegex,
+    `export type Action =${newContent}`
   );
   return content;
 };
