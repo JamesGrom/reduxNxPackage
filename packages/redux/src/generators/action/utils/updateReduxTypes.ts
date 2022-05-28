@@ -10,26 +10,34 @@ export const updateReduxTypes = (tree: Tree, options: NormalizedSchema) => {
     content,
     options.actionClassName,
     options.actionConstName,
+    options.actionFileName,
     options.reducedStateName
   );
   if (options.includesLoader)
     content = addNewAction(
       content,
       options.loaderName!,
-      options.loaderConstName!
+      options.loaderConstName!,
+      options.loaderFileName!
     );
   if (options.includesError)
-    content = addNewAction(content, options.errorName!, options.errorConstName);
+    content = addNewAction(
+      content,
+      options.errorName!,
+      options.errorConstName,
+      options.errorFileName!
+    );
   tree.write(targetFilePath, content);
 };
 const addNewAction = (
   content: string,
   actionClassName: string,
   actionConstName: string,
+  actionFileName: string,
   reducedStateName?: string
 ): string => {
-  content = importActionInterface(content, actionClassName);
-  content = importReducer(content, actionClassName);
+  content = importActionInterface(content, actionClassName, actionFileName);
+  content = importReducer(content, actionClassName, actionFileName);
   content = updateActionTypesEnum(content, actionConstName);
   content = updateAction(content, actionClassName);
   content = updateCombinedReducer(content, actionClassName, reducedStateName);
@@ -59,19 +67,24 @@ const updateAction = (content: string, actionClassName: string): string => {
 };
 const importActionInterface = (
   content: string,
-  actionClassName: string
+  actionClassName: string,
+  actionFileName: string
 ): string => {
   const replacementAnchorString = 'ACTION--INTERFACE--IMPORTS';
-  const newContent = `\nimport {${actionClassName}Interface} from "./${actionClassName}";`;
+  const newContent = `\nimport {${actionClassName}Interface} from "./${actionFileName}";`;
   content = content.replace(
     replacementAnchorString,
     `${replacementAnchorString}${newContent}`
   );
   return content;
 };
-const importReducer = (content: string, actionClassName: string): string => {
+const importReducer = (
+  content: string,
+  actionClassName: string,
+  actionFileName: string
+): string => {
   const replacementAnchorString = 'REDUCER--IMPORTS';
-  const newContent = `\nimport {${actionClassName}Reducer} from "./${actionClassName}";`;
+  const newContent = `\nimport {${actionClassName}Reducer} from "./${actionFileName}";`;
   content = content.replace(
     replacementAnchorString,
     `${replacementAnchorString}${newContent}`

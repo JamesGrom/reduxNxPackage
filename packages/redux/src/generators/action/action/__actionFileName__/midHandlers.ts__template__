@@ -1,7 +1,7 @@
 import {<%=actionClassName%>Payload} from "./actionPayload";
 import { MiddlewareAPI } from "redux";
 <% if (includesLoader) { %>
-    import {set_<%=loaderName%>} from "../<%=loaderName%>"
+    import {set_<%=loaderName%>} from "../<%=loaderFileName%>"
 <% }%>
     
 export const defaultMiddlewareHandler = <% if (includesLoader) { %>async<% }%>(payload: <%=actionClassName%>Payload, api:MiddlewareAPI) => {

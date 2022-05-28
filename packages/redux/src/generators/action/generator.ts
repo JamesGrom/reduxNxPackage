@@ -19,8 +19,10 @@ export interface NormalizedSchema extends ActionGeneratorSchema {
   actionClassName: string;
   actionConstName: string;
   loaderName?: string;
+  loaderFileName?: string;
   loaderConstName?: string;
   errorName?: string;
+  errorFileName?: string;
   errorConstName?: string;
   projectRoot: string;
 }
@@ -43,17 +45,25 @@ function normalizeOptions(
   const loaderConstName = options.includesLoader
     ? `${actionConstName}_LOADING`
     : undefined;
+  const loaderFileName = options.includesLoader
+    ? `${actionFileName}-loading`
+    : undefined;
   const errorName = options.includesError
     ? `${actionClassName}Error`
     : undefined;
   const errorConstName = options.includesError
     ? `${actionConstName}_ERROR`
     : undefined;
+  const errorFileName = options.includesLoader
+    ? `${actionFileName}-error`
+    : undefined;
   const actionRoot = projectRoot + `/src`;
   return {
     ...options,
     loaderConstName,
     errorConstName,
+    loaderFileName,
+    errorFileName,
     projectRoot,
     actionName,
     actionConstName,
