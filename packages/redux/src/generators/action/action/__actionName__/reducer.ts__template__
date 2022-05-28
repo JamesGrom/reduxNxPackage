@@ -1,14 +1,15 @@
-import {<%=actionName%>Payload } from "./actionPayload";
 import {ACTION_TYPES,Action} from "../index"
 
-const initialVal = <%=initialValue%>;
+export type stateTypeInStore = <%=reducedStateType%>
+const initialVal: stateTypeInStore = <%=initialValue%>;
 export const <%=actionName%>Reducer = (
-	oldVal: <%=actionName%>Payload = initialVal,
+	oldVal: typeof initialVal = initialVal,
 	action: Action
-) => {
+): stateTypeInStore => {
 	switch (action.type) {
 		case ACTION_TYPES.<%=uppercase(actionName)%>: {
-			return action.payload;
+			// IMPLEMENT REDUCER HERE
+			return oldVal;
 		}
 		default:
 			return oldVal;

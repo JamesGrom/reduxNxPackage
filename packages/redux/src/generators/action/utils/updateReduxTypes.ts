@@ -6,19 +6,23 @@ import { NormalizedSchema } from '../generator';
 export const updateReduxTypes = (tree: Tree, options: NormalizedSchema) => {
   const targetFilePath = path.join(options.projectRoot, '/src/index.ts');
   let content = readFileIfExisting(targetFilePath);
-  content = addNewAction(content, options.actionName);
+  content = addNewAction(content, options.actionName, options.reducedStateName);
   if (options.includesLoader)
     content = addNewAction(content, `${options.actionName}_Loading`);
   if (options.includesError)
     content = addNewAction(content, `${options.actionName}_Error`);
   tree.write(targetFilePath, content);
 };
-const addNewAction = (content: string, actionName: string): string => {
+const addNewAction = (
+  content: string,
+  actionName: string,
+  reducedStateName?: string
+): string => {
   content = importActionInterface(content, actionName);
   content = importReducer(content, actionName);
   content = updateActionTypesEnum(content, actionName);
   content = updateAction(content, actionName);
-  content = updateCombinedReducer(content, actionName);
+  content = updateCombinedReducer(content, actionName, reducedStateName);
   return content;
 };
 
@@ -59,9 +63,15 @@ const importReducer = (content: string, actionName: string): string => {
   return content;
 };
 
-const updateCombinedReducer = (content: string, actionName: string): string => {
+const updateCombinedReducer = (
+  content: string,
+  actionName: string,
+  reducedStateName?: string
+): string => {
   const replacementAnchorString = 'const conjoinedReducers = {';
-  const newContent = `\n${actionName}: ${actionName}Reducer,`;
+  const newContent = `\n${
+    reducedStateName ?? actionName
+  }: ${actionName}Reducer,`;
   content = content.replace(
     replacementAnchorString,
     `${replacementAnchorString}${newContent}`

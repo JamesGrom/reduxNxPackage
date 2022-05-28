@@ -4,5 +4,8 @@ export interface ActionGeneratorSchema {
   includesLoader: boolean;
   includesError: boolean;
   reducedStateName: string;
+  payloadType: string;
+  reducedStateName: string;
+  reducedStateType: string;
   initialValue: string;
 }

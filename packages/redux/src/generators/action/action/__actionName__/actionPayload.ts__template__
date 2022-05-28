@@ -1,1 +1,1 @@
-export type <%=actionName%>Payload = null
+export type <%=actionName%>Payload = <%=payloadType%>

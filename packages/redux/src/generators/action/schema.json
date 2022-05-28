@@ -32,14 +32,21 @@
       "default": "false",
       "x-prompt": "should this action include a corresponding error?"
     },
+    "payloadType": {
+      "type": "string",
+      "description": "type of the actions payload",
+      "x-prompt": "what type should be used as the action's payload? eg: null | string"
+    },
     "reducedStateName": {
       "type": "string",
       "description": "name of the destination object in redux store",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "what object name should the redcer reduce to? eg: "
+      "x-prompt": "what object name should the reducer reduce to? eg: "
+    },
+    "reducedStateType": {
+      "type": "string",
+      "description": "type of the reduced state in the redux store",
+      "default": "null",
+      "x-prompt": "what type does this action reduce to in the redux store"
     },
     "initialValue": {
       "type": "string",
@@ -47,5 +54,5 @@
       "x-prompt": "what should the initial value be in the redux store?"
     }
   },
-  "required": ["actionName", "includesLoader"]
+  "required": ["actionName"]
 }
