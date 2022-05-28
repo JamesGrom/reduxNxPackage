@@ -8,10 +8,7 @@
     "parentLibraryName": {
       "type": "string",
       "description": "The redux library for/in which the action is created",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
+      "default": "rdx",
       "x-prompt": "Which redux library should this action be created in?"
     },
     "actionName": {
@@ -19,7 +16,7 @@
       "description": "The name of the redux action",
       "$default": {
         "$source": "argv",
-        "index": 1
+        "index": 0
       },
       "x-prompt": "What would you like to call the action ?"
     },
@@ -34,17 +31,13 @@
       "description": "name of the destination object in redux store",
       "$default": {
         "$source": "argv",
-        "index": 3
+        "index": 0
       },
-      "x-prompt": "what object name should the redcer reduce to? eg: ActionName_Loading"
+      "x-prompt": "what object name should the redcer reduce to? eg: "
     },
     "initialValue": {
       "type": "string",
       "description": "initial value set in the first reducer",
-      "$default": {
-        "$source": "argv",
-        "index": 4
-      },
       "x-prompt": "what should the initial value be in the redux store?"
     }
   },
