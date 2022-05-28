@@ -10,9 +10,11 @@ import { uppercase } from './utils/uppercase';
 import { updateActionInterfaces } from './utils/updateActionInterfaces';
 import * as path from 'path';
 import { ActionGeneratorSchema } from './schema';
+import { generateLoaderAction } from './loaderGenerator/generator';
 
 export interface NormalizedSchema extends ActionGeneratorSchema {
   actionRoot: string;
+  loaderName?: string;
   projectRoot: string;
 }
 
@@ -25,11 +27,15 @@ function normalizeOptions(
   const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${
     options.parentLibraryName
   }`;
+  const loaderName = options.includesLoader
+    ? `${options.actionName}_Loading`
+    : undefined;
   const actionRoot = projectRoot + `/src`;
   return {
     ...options,
     projectRoot,
     actionName,
+    loaderName,
     actionRoot,
   };
 }
@@ -52,4 +58,6 @@ export default async function (tree: Tree, options: ActionGeneratorSchema) {
   addFiles(tree, normalizedOptions);
   updateActionInterfaces(tree, normalizedOptions);
   await formatFiles(tree);
+  if (normalizedOptions.includesLoader === true)
+    await generateLoaderAction(tree, normalizedOptions);
 }

@@ -8,31 +8,28 @@ import {
 import { uppercase } from '../utils/uppercase';
 import { NormalizedSchema } from '../generator';
 import * as path from 'path';
-import { updateActionInterfaces } from '../utils/updateActionInterfaces';
 export const generateLoaderAction = async (
   tree: Tree,
   options: NormalizedSchema
 ) => {
-  const loaderName = `${options.actionName}_Loading`;
-  addLoaderFiles(tree, options, loaderName);
-  updateActionInterfaces(tree, { ...options, actionName: loaderName });
+  addLoaderFiles(tree, options);
   await formatFiles(tree);
 };
-export function addLoaderFiles(
-  tree: Tree,
-  options: NormalizedSchema,
-  loaderName: string
-) {
+export function addLoaderFiles(tree: Tree, options: NormalizedSchema) {
   const fileDestination = options.actionRoot;
   const templateOptions = {
     ...options,
     ...names(options.actionName),
-    loaderName,
     offsetFromRoot: offsetFromRoot(options.projectRoot),
     template: '',
   };
-  generateFiles(tree, path.join(__dirname, 'loaderAction'), fileDestination, {
-    ...templateOptions,
-    uppercase,
-  });
+  generateFiles(
+    tree,
+    path.join(__dirname, '../loaderAction'),
+    fileDestination,
+    {
+      ...templateOptions,
+      uppercase,
+    }
+  );
 }

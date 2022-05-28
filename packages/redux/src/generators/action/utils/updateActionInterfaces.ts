@@ -22,5 +22,22 @@ export const updateActionInterfaces = (
     'noopInterface;',
     `${options.actionName}Interface | noopInterface;`
   );
+  if (options.includesLoader) content = includeNewLoader(content, options);
   tree.write(actionTypeModulePath, content);
+};
+
+const includeNewLoader = (inputContent: string, options: NormalizedSchema) => {
+  let outputContent: string = inputContent;
+  const toInsertIntoImport = `import {${options.loaderName}Interface} from "./${options.loaderName}";\n`;
+  outputContent = `${toInsertIntoImport}${outputContent}`;
+  const toInsertIntoEnum = `\n${options.loaderName.toUpperCase()}="${options.loaderName.toUpperCase()}",`;
+  outputContent = outputContent.replace(
+    'ACTION_TYPES {',
+    `ACTION_TYPES { ${toInsertIntoEnum}`
+  );
+  outputContent = outputContent.replace(
+    'noopInterface;',
+    `${options.loaderName}Interface | noopInterface;`
+  );
+  return outputContent;
 };
