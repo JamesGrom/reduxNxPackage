@@ -18,6 +18,7 @@ const addNewAction = (content: string, actionName: string): string => {
   content = importReducer(content, actionName);
   content = updateActionTypesEnum(content, actionName);
   content = updateAction(content, actionName);
+  content = updateCombinedReducer(content, actionName);
   return content;
 };
 
@@ -51,6 +52,16 @@ const importActionInterface = (content: string, actionName: string): string => {
 const importReducer = (content: string, actionName: string): string => {
   const replacementAnchorString = 'REDUCER--IMPORTS';
   const newContent = `\nimport {${actionName}Reducer} from "./${actionName}";`;
+  content = content.replace(
+    replacementAnchorString,
+    `${replacementAnchorString}${newContent}`
+  );
+  return content;
+};
+
+const updateCombinedReducer = (content: string, actionName: string): string => {
+  const replacementAnchorString = 'const conjoinedReducers = {';
+  const newContent = `\n${actionName}: ${actionName}Reducer,`;
   content = content.replace(
     replacementAnchorString,
     `${replacementAnchorString}${newContent}`

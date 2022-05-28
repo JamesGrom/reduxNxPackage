@@ -1,8 +1,17 @@
 // IMPORTANT!! - DO NOT DELETE ANY COMMENTS IN THIS FILE
+import { combineReducers } from 'redux';
 // ACTION--INTERFACE--IMPORTS
 import { noopInterface } from './noop';
 // REDUCER--IMPORTS
+import { noopReducer } from './noop';
+
 export enum ACTION_TYPES {
   NOOP = 'NOOP',
 }
 export type Action = noopInterface;
+
+const conjoinedReducers = {
+  noop: noopReducer,
+};
+export const combinedReducers = combineReducers(conjoinedReducers);
+export type State = ReturnType<typeof combinedReducers>;
