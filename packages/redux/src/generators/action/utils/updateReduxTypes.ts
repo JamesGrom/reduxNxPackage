@@ -1,4 +1,4 @@
-import { readFileIfExisting } from 'nx/src/project-graph/file-utils';
+import { readFileIfExisting } from '@nrwl/workspace/src/core/file-utils';
 import { Tree } from '@nrwl/devkit';
 import * as path from 'path';
 import { NormalizedSchema } from '../generator';
