@@ -1,0 +1,6 @@
+export type <%=errorName %>Payload = null | <%=errorName%>Codes;
+
+export enum <%=errorName %>Codes {
+   UNDEFINED_ERROR_CODE = "UNDEFINED_ERROR_CODE",
+}
+
