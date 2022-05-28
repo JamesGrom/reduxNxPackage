@@ -57,11 +57,3 @@ const importReducer = (content: string, actionName: string): string => {
   );
   return content;
 };
-
-// const updateContent = (
-//   content: string,
-//   replacementAnchorString: string,
-//   newContent: string
-// ): string => {
-//   return content;
-// };

@@ -7,7 +7,7 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import { uppercase } from './utils/uppercase';
-import { updateActionInterfaces } from './utils/updateActionInterfaces';
+import { updateReduxTypes } from './utils/updateReduxTypes';
 import * as path from 'path';
 import { ActionGeneratorSchema } from './schema';
 import { generateLoaderAction } from './loaderGenerator/generator';
@@ -62,7 +62,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
-  updateActionInterfaces(tree, normalizedOptions);
+  updateReduxTypes(tree, normalizedOptions);
   if (normalizedOptions.includesLoader === true)
     await generateLoaderAction(tree, normalizedOptions);
   if (normalizedOptions.includesError === true)
