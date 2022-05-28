@@ -1,5 +1,4 @@
 export * from './actionPayload';
 export * from './actionInterface';
 export * from './actionCreator';
-export * from './midHandlers';
 export * from './reducer';

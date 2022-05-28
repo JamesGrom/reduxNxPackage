@@ -1,13 +1,25 @@
-import { Action } from '../index';
-import {ACTION_TYPES} from "../index"
+import {<%=actionName %>Payload} from "./actionPayload";
 import { MiddlewareAPI } from "redux";
-export const defaultMiddlewareHandler = (action: Action , api:MiddlewareAPI) => {
-    switch (action.type) {
-        case ACTION_TYPES.<%=uppercase(actionName) %>: {
-            console.log(`defaultMiddleware triggered for <%=uppercase(actionName)%>`)
-            break;
-        }
-        default:
-            break;
-    }
+<% if (includesLoader) { %>
+    import {set_<%=actionName %>_Loading} from "../<%=actionName %>_Loading"
+<% }%>
+    
+export const defaultMiddlewareHandler = <% if (includesLoader) { %>async<% }%>(payload: <%=actionName%>Payload, api:MiddlewareAPI) => {
+    console.log(`defaultMiddleware triggered for <%=uppercase(actionName)%>`)
+    <% if (includesLoader) { %>
+        await wrapInLoader(asyncHandler, payload, api);
+        console.log("doesIncludeLoader")
+        <% }%>
 };
+
+<% if (includesLoader) { %>
+const wrapInLoader = async (asyncHandler: (payload:<%=actionName%>Payload,api:MiddlewareAPI)=>any, payload:<%=actionName%>Payload, api: MiddlewareAPI) => {
+    api.dispatch(set_<%=actionName %>_Loading(true))
+    await asyncHandler(payload,api)
+    api.dispatch(set_<%=actionName %>_Loading(false))
+}
+const asyncHandler = async (payload:<%=actionName%>Payload, api: MiddlewareAPI) => {
+    console.log("inside async handler")
+}
+<% }%>
+
