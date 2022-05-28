@@ -2,12 +2,12 @@ import {ACTION_TYPES,Action} from "../index"
 
 export type stateTypeInStore = <%=reducedStateType%>
 const initialVal: stateTypeInStore = <%=initialValue%>;
-export const <%=actionName%>Reducer = (
+export const <%=actionClassName%>Reducer = (
 	oldVal: typeof initialVal = initialVal,
 	action: Action
 ): stateTypeInStore => {
 	switch (action.type) {
-		case ACTION_TYPES.<%=uppercase(actionName)%>: {
+		case ACTION_TYPES.<%=actionConstName%>: {
 			// IMPLEMENT REDUCER HERE
 			return oldVal;
 		}

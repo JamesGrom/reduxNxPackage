@@ -2,7 +2,7 @@ import {<%=loaderName%>Payload } from "./actionPayload";
 import {ACTION_TYPES} from "../index"
 export const set_<%=loaderName%> = (
 	payload: <%=loaderName%>Payload  
-): { type: ACTION_TYPES.<%=uppercase(loaderName)%>; payload: <%=loaderName%>Payload  } => ({
-	type: ACTION_TYPES.<%=uppercase(loaderName)%>,
+): { type: ACTION_TYPES.<%=loaderConstName%>; payload: <%=loaderName%>Payload  } => ({
+	type: ACTION_TYPES.<%=loaderConstName%>,
 	payload,
 });

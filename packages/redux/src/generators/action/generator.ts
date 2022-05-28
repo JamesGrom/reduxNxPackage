@@ -15,8 +15,13 @@ import { generateErrorAction } from './errorGenerator/generator';
 
 export interface NormalizedSchema extends ActionGeneratorSchema {
   actionRoot: string;
+  actionFileName: string;
+  actionClassName: string;
+  actionConstName: string;
   loaderName?: string;
+  loaderConstName?: string;
   errorName?: string;
+  errorConstName?: string;
   projectRoot: string;
 }
 
@@ -25,21 +30,35 @@ function normalizeOptions(
   options: ActionGeneratorSchema
 ): NormalizedSchema {
   const nameOfAction = names(options.actionName).fileName;
+  const actionFileName = names(options.actionName).fileName;
+  const actionClassName = names(options.actionName).className;
+  const actionConstName = names(options.actionName).constantName;
   const actionName = nameOfAction.replace(new RegExp('/', 'g'), '-');
   const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${
     options.parentLibraryName
   }`;
   const loaderName = options.includesLoader
-    ? `${options.actionName}_Loading`
+    ? `${actionClassName}Loading`
+    : undefined;
+  const loaderConstName = options.includesLoader
+    ? `${actionConstName}_LOADING`
     : undefined;
   const errorName = options.includesError
-    ? `${options.actionName}_Error`
+    ? `${actionClassName}Error`
+    : undefined;
+  const errorConstName = options.includesError
+    ? `${actionConstName}_ERROR`
     : undefined;
   const actionRoot = projectRoot + `/src`;
   return {
     ...options,
+    loaderConstName,
+    errorConstName,
     projectRoot,
     actionName,
+    actionConstName,
+    actionClassName,
+    actionFileName,
     loaderName,
     errorName,
     actionRoot,

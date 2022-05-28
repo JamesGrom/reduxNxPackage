@@ -7,7 +7,7 @@ export const <%=loaderName%>Reducer = (
 	action: Action
 ) => {
 	switch (action.type) {
-		case ACTION_TYPES.<%=uppercase(loaderName)%>: {
+		case ACTION_TYPES.<%=loaderConstName%>: {
 			return action.payload;
 		}
 		default:
