@@ -1,4 +1,7 @@
+// IMPORTANT!! - DO NOT DELETE ANY COMMENTS IN THIS FILE
+// ACTION--INTERFACE--IMPORTS
 import { noopInterface } from './noop';
+// REDUCER--IMPORTS
 export enum ACTION_TYPES {
   NOOP = 'NOOP',
 }
