@@ -23,6 +23,7 @@ export const updateActionInterfaces = (
     `${options.actionName}Interface | noopInterface;`
   );
   if (options.includesLoader) content = includeNewLoader(content, options);
+  if (options.includesError) content = includeNewError(content, options);
   tree.write(actionTypeModulePath, content);
 };
 
@@ -38,6 +39,22 @@ const includeNewLoader = (inputContent: string, options: NormalizedSchema) => {
   outputContent = outputContent.replace(
     'noopInterface;',
     `${options.loaderName}Interface | noopInterface;`
+  );
+  return outputContent;
+};
+
+const includeNewError = (inputContent: string, options: NormalizedSchema) => {
+  let outputContent: string = inputContent;
+  const toInsertIntoImport = `import {${options.errorName}Interface} from "./${options.errorName}";\n`;
+  outputContent = `${toInsertIntoImport}${outputContent}`;
+  const toInsertIntoEnum = `\n${options.errorName.toUpperCase()}="${options.errorName.toUpperCase()}",`;
+  outputContent = outputContent.replace(
+    'ACTION_TYPES {',
+    `ACTION_TYPES { ${toInsertIntoEnum}`
+  );
+  outputContent = outputContent.replace(
+    'noopInterface;',
+    `${options.errorName}Interface | noopInterface;`
   );
   return outputContent;
 };

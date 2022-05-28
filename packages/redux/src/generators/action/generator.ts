@@ -11,10 +11,12 @@ import { updateActionInterfaces } from './utils/updateActionInterfaces';
 import * as path from 'path';
 import { ActionGeneratorSchema } from './schema';
 import { generateLoaderAction } from './loaderGenerator/generator';
+import { generateErrorAction } from './errorGenerator/generator';
 
 export interface NormalizedSchema extends ActionGeneratorSchema {
   actionRoot: string;
   loaderName?: string;
+  errorName?: string;
   projectRoot: string;
 }
 
@@ -30,12 +32,16 @@ function normalizeOptions(
   const loaderName = options.includesLoader
     ? `${options.actionName}_Loading`
     : undefined;
+  const errorName = options.includesError
+    ? `${options.actionName}_Error`
+    : undefined;
   const actionRoot = projectRoot + `/src`;
   return {
     ...options,
     projectRoot,
     actionName,
     loaderName,
+    errorName,
     actionRoot,
   };
 }
@@ -57,7 +63,9 @@ export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
   addFiles(tree, normalizedOptions);
   updateActionInterfaces(tree, normalizedOptions);
-  await formatFiles(tree);
   if (normalizedOptions.includesLoader === true)
     await generateLoaderAction(tree, normalizedOptions);
+  if (normalizedOptions.includesError === true)
+    await generateErrorAction(tree, normalizedOptions);
+  await formatFiles(tree);
 }

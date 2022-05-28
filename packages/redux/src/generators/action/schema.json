@@ -26,6 +26,12 @@
       "default": "false",
       "x-prompt": "should this action include a corresponding loader?"
     },
+    "includesError": {
+      "type": "boolean",
+      "description": "generates an error and corresponding action for the error",
+      "default": "false",
+      "x-prompt": "should this action include a corresponding error?"
+    },
     "reducedStateName": {
       "type": "string",
       "description": "name of the destination object in redux store",
