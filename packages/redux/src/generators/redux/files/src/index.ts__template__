@@ -2,13 +2,15 @@
 import { combineReducers } from 'redux';
 // ACTION--INTERFACE--IMPORTS
 import { noopInterface } from './noop';
+import { ReInitInterface } from './re-init';
 // REDUCER--IMPORTS
 import { noopReducer } from './noop';
 
 export enum ACTION_TYPES {
   NOOP = 'NOOP',
+  RE_INIT = 'RE_INIT',
 }
-export type Action = noopInterface;
+export type Action = ReInitInterface | noopInterface;
 
 const conjoinedReducers = {
   noop: noopReducer,

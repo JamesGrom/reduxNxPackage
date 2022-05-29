@@ -1,0 +1,8 @@
+import { ReInitPayLoad } from './actionPayload';
+import { ACTION_TYPES } from '../index';
+export const new_ReInit = (
+  payload: ReInitPayLoad
+): { type: ACTION_TYPES.RE_INIT; payload: ReInitPayLoad } => ({
+  type: ACTION_TYPES.RE_INIT,
+  payload,
+});

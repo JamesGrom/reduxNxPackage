@@ -1,0 +1,6 @@
+import { ReInitPayLoad } from './actionPayload';
+import { ACTION_TYPES } from '../index';
+export interface ReInitInterface {
+  type: ACTION_TYPES.RE_INIT;
+  payload: ReInitPayLoad;
+}

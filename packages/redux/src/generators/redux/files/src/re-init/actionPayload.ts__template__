@@ -1,0 +1,2 @@
+import { ACTION_TYPES } from '../index';
+export type ReInitPayLoad = { targets: ACTION_TYPES[] };
