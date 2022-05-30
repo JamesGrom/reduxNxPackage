@@ -63,7 +63,7 @@ const updateActionTypesEnum = (
   return content;
 };
 const updateAction = (content: string, actionClassName: string): string => {
-  const replacementRegex = new RegExp(`export type Action *= *[ \n|]*`);
+  const replacementRegex = new RegExp(`export type Action *= *[ \t\n|]*`);
   const newContent = ` ${actionClassName}Interface |`;
   content = content.replace(
     replacementRegex,
