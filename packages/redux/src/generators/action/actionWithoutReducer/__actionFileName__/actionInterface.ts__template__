@@ -1,6 +1,0 @@
-import {<%=actionClassName%>Payload } from "./actionPayload";
-import {ACTION_TYPES} from "../index"
-export interface <%=actionClassName%>Interface { 
-    type: ACTION_TYPES.<%=actionConstName%>;
-    payload: <%=actionClassName%>Payload;
-}

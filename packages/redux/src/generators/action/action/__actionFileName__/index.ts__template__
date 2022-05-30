@@ -1,5 +1,9 @@
 export * from './actionPayload';
 export * from './actionInterface';
 export * from './actionCreator';
-export * from './midHandlers';
+<%if (includesReducer) {%>
 export * from './reducer';
+<%} %>
+<%if (includesMiddlewareHandler) {%>
+export * from './midHandlers';
+<%} %>

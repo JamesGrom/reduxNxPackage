@@ -84,18 +84,20 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     template: '',
   };
 
-  generateFiles(
-    tree,
-    path.join(
-      __dirname,
-      options.includesReducer ? 'action' : 'actionWithoutReducer'
-    ),
-    fileDestination,
-    {
+  generateFiles(tree, path.join(__dirname, 'action'), fileDestination, {
+    ...templateOptions,
+    uppercase,
+  });
+  if (options.includesReducer)
+    generateFiles(tree, path.join(__dirname, 'reducer'), fileDestination, {
       ...templateOptions,
       uppercase,
-    }
-  );
+    });
+  if (options.includesMiddlewareHandler)
+    generateFiles(tree, path.join(__dirname, 'midHandler'), fileDestination, {
+      ...templateOptions,
+      uppercase,
+    });
 }
 export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);

@@ -4,6 +4,7 @@ export interface ActionGeneratorSchema {
   includesLoader: boolean;
   includesError: boolean;
   includesReducer: boolean;
+  includesMiddlewareHandler: boolean;
   reducedStateName: string;
   payloadType: string;
   reducedStateName: string;

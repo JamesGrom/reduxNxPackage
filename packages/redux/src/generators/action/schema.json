@@ -23,20 +23,26 @@
     "includesLoader": {
       "type": "boolean",
       "description": "generates a loader and corresponding action for the loader",
-      "default": "false",
+      "default": "true",
       "x-prompt": "should this action include a corresponding loader?"
     },
     "includesError": {
       "type": "boolean",
       "description": "generates an error and corresponding action for the error",
-      "default": "false",
+      "default": "true",
       "x-prompt": "should this action include a corresponding error?"
     },
     "includesReducer": {
       "type": "boolean",
       "description": "generates a reducer and links reducer with redux store ",
-      "default": "false",
+      "default": "true",
       "x-prompt": "should this action include a corresponding reducer?"
+    },
+    "includesMiddlewareHandler": {
+      "type": "boolean",
+      "description": "generates a middleware handler for the action",
+      "default": "true",
+      "x-prompt": "should this action include a corresponding middleware handler?"
     },
     "payloadType": {
       "type": "string",
