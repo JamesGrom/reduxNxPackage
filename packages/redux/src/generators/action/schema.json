@@ -32,6 +32,12 @@
       "default": "false",
       "x-prompt": "should this action include a corresponding error?"
     },
+    "includesReducer": {
+      "type": "boolean",
+      "description": "generates a reducer and links reducer with redux store ",
+      "default": "false",
+      "x-prompt": "should this action include a corresponding reducer?"
+    },
     "payloadType": {
       "type": "string",
       "description": "type of the actions payload",

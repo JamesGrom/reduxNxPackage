@@ -11,6 +11,7 @@ export const updateReduxTypes = (tree: Tree, options: NormalizedSchema) => {
     options.actionClassName,
     options.actionConstName,
     options.actionFileName,
+    options.includesReducer,
     options.reducedStateName
   );
   if (options.includesLoader)
@@ -18,14 +19,16 @@ export const updateReduxTypes = (tree: Tree, options: NormalizedSchema) => {
       content,
       options.loaderName!,
       options.loaderConstName!,
-      options.loaderFileName!
+      options.loaderFileName!,
+      true
     );
   if (options.includesError)
     content = addNewAction(
       content,
       options.errorName!,
       options.errorConstName,
-      options.errorFileName!
+      options.errorFileName!,
+      true
     );
   tree.write(targetFilePath, content);
 };
@@ -34,13 +37,16 @@ const addNewAction = (
   actionClassName: string,
   actionConstName: string,
   actionFileName: string,
+  includesReducer: boolean,
   reducedStateName?: string
 ): string => {
   content = importActionInterface(content, actionClassName, actionFileName);
-  content = importReducer(content, actionClassName, actionFileName);
+  if (includesReducer)
+    content = importReducer(content, actionClassName, actionFileName);
   content = updateActionTypesEnum(content, actionConstName);
   content = updateAction(content, actionClassName);
-  content = updateCombinedReducer(content, actionClassName, reducedStateName);
+  if (includesReducer)
+    content = updateCombinedReducer(content, actionClassName, reducedStateName);
   return content;
 };
 

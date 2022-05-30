@@ -3,6 +3,7 @@ export interface ActionGeneratorSchema {
   actionName: string;
   includesLoader: boolean;
   includesError: boolean;
+  includesReducer: boolean;
   reducedStateName: string;
   payloadType: string;
   reducedStateName: string;

@@ -83,10 +83,19 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     offsetFromRoot: offsetFromRoot(options.projectRoot),
     template: '',
   };
-  generateFiles(tree, path.join(__dirname, 'action'), fileDestination, {
-    ...templateOptions,
-    uppercase,
-  });
+
+  generateFiles(
+    tree,
+    path.join(
+      __dirname,
+      options.includesReducer ? 'action' : 'actionWithoutReducer'
+    ),
+    fileDestination,
+    {
+      ...templateOptions,
+      uppercase,
+    }
+  );
 }
 export default async function (tree: Tree, options: ActionGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);

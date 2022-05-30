@@ -1,0 +1,25 @@
+import {<%=actionClassName%>Payload} from "./actionPayload";
+import { MiddlewareAPI } from "redux";
+<% if (includesLoader) { %>
+    import {set_<%=loaderName%>} from "../<%=loaderFileName%>"
+<% }%>
+    
+export const defaultMiddlewareHandler = <% if (includesLoader) { %>async<% }%>(payload: <%=actionClassName%>Payload, api:MiddlewareAPI) => {
+    console.log(`defaultMiddleware triggered for <%=actionConstName%>`)
+    <% if (includesLoader) { %>
+        await wrapInLoader(asyncHandler, payload, api);
+        console.log("doesIncludeLoader")
+        <% }%>
+};
+
+<% if (includesLoader) { %>
+const wrapInLoader = async (asyncHandler: (payload:<%=actionClassName%>Payload,api:MiddlewareAPI)=>any, payload:<%=actionClassName%>Payload, api: MiddlewareAPI) => {
+    api.dispatch(set_<%=loaderName%>(true))
+    await asyncHandler(payload,api)
+    api.dispatch(set_<%=loaderName%>(false))
+}
+const asyncHandler = async (payload:<%=actionClassName%>Payload, api: MiddlewareAPI) => {
+    console.log("inside async handler")
+}
+<% }%>
+
