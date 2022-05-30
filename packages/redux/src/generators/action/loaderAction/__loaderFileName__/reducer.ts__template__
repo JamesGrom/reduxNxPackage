@@ -10,6 +10,10 @@ export const <%=loaderName%>Reducer = (
 		case ACTION_TYPES.<%=loaderConstName%>: {
 			return action.payload;
 		}
+		case ACTION_TYPES.RE_INIT: {
+			if(action.payload.targets.includes(ACTION_TYPES.<%=loaderConstName%>)) return initialVal;
+			return oldVal;
+		}
 		default:
 			return oldVal;
 	}

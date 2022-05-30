@@ -10,6 +10,10 @@ export const <%=errorName%>Reducer = (
 		case ACTION_TYPES.<%=errorConstName%>: {
 			return action.payload;
 		}
+		case ACTION_TYPES.RE_INIT: {
+			if(action.payload.targets.includes(ACTION_TYPES.<%=errorConstName%>)) return initialVal;
+			return oldVal;
+		}
 		default:
 			return oldVal;
 	}
