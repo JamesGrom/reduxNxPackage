@@ -32,10 +32,10 @@ function normalizeOptions(
   options: ActionGeneratorSchema
 ): NormalizedSchema {
   const nameOfAction = names(options.actionName).fileName;
-  const actionFileName = names(options.actionName).fileName;
-  const actionClassName = names(options.actionName).className;
-  const actionConstName = names(options.actionName).constantName;
   const actionName = nameOfAction.replace(new RegExp('/', 'g'), '-');
+  const actionFileName = names(actionName).fileName;
+  const actionClassName = names(actionName).className;
+  const actionConstName = names(actionName).constantName;
   const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${
     options.parentLibraryName
   }`;
