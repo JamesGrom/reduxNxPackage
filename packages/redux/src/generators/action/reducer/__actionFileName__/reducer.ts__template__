@@ -1,6 +1,6 @@
 import {ACTION_TYPES,Action} from "../index"
 
-export type stateTypeInStore = <%=reducedStateType%>
+type stateTypeInStore = <%=reducedStateType%>
 const initialVal: stateTypeInStore = <%=initialValue%>;
 export const <%=actionClassName%>Reducer = (
 	oldVal: typeof initialVal = initialVal,
