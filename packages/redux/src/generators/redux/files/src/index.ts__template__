@@ -17,3 +17,4 @@ const conjoinedReducers = {
 };
 export const combinedReducers = combineReducers(conjoinedReducers);
 export type State = ReturnType<typeof combinedReducers>;
+export * from './actionCreators';
