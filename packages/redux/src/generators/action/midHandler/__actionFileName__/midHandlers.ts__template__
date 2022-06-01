@@ -1,25 +1,15 @@
 import {<%=actionClassName%>Payload} from "./actionPayload";
-import { MiddlewareAPI } from "redux";
+import { AnyAction, Dispatch, MiddlewareAPI } from "redux";
+import { State } from "../index";
 <% if (includesLoader) { %>
-    import {set_<%=loaderName%>} from "../<%=loaderFileName%>"
+import {set_<%=loaderName%>} from "../<%=loaderFileName%>"
+import {set_<%=errorName%>} from "../<%=errorFileName%>"
 <% }%>
     
-export const <%=actionClassName%>MiddlewareHandler = <% if (includesLoader) { %>async<% }%>(payload: <%=actionClassName%>Payload, api:MiddlewareAPI) => {
+export const <%=actionClassName%>MiddlewareHandler = <% if (includesLoader) { %>async<% }%>(payload: <%=actionClassName%>Payload, api:MiddlewareAPI<Dispatch<AnyAction>,State>) => {
     console.log(`defaultMiddleware triggered for <%=actionConstName%>`)
-    <% if (includesLoader) { %>
-        await wrapInLoader(asyncHandler, payload, api);
-        console.log("doesIncludeLoader")
-        <% }%>
+<% if (includesLoader) { %>api.dispatch(set_<%=loaderName%>(true))<%}%>
+<% if (includesError) { %>api.dispatch(set_<%=errorName%>(null))<%}%>
+    // IMPLEMENT HERE
+<% if (includesLoader) { %>api.dispatch(set_<%=loaderName%>(false))<%}%>
 };
-
-<% if (includesLoader) { %>
-const wrapInLoader = async (asyncHandler: (payload:<%=actionClassName%>Payload,api:MiddlewareAPI)=>any, payload:<%=actionClassName%>Payload, api: MiddlewareAPI) => {
-    api.dispatch(set_<%=loaderName%>(true))
-    await asyncHandler(payload,api)
-    api.dispatch(set_<%=loaderName%>(false))
-}
-const asyncHandler = async (payload:<%=actionClassName%>Payload, api: MiddlewareAPI) => {
-    console.log("inside async handler")
-}
-<% }%>
-
